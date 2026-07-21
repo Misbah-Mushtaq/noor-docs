@@ -49,7 +49,7 @@
   <header>
     <div class="badge">Islamic Companion App</div>
     <h1>NOOR</h1>
-    <p>Privacy Policy &nbsp;·&nbsp; Last updated: June 24, 2026</p>
+    <p>Privacy Policy &nbsp;·&nbsp; Last updated: July 22, 2026</p>
   </header>
 
   <p>
@@ -58,18 +58,47 @@
     Policy explains what information we access, how we use it, and your rights.
   </p>
 
+  <p>
+    <strong>An account is optional.</strong> You can use NOOR fully offline without
+    signing in — in that mode all your data stays on your device and nothing is sent
+    to our servers. If you choose to create an account, we sync your data so you can
+    access it across devices and restore it if you change phones. The sections below
+    describe both modes.
+  </p>
+
   <h2>1. Information We Collect</h2>
-  <p>We do not collect, store, or transmit any personal data to external servers. All
-  data stays on your device. The only information the App accesses is:</p>
+
+  <p><strong>When you use the App without an account:</strong></p>
   <ul>
     <li><strong>Location (approximate or precise):</strong> Used solely to calculate
-    accurate prayer times and Qibla direction for your area. Location is never stored
-    beyond your current session and is never shared with third parties.</li>
+    accurate prayer times and Qibla direction for your area. Processed on your device
+    and not stored on our servers.</li>
     <li><strong>Device time &amp; timezone:</strong> Used to display accurate prayer
     countdowns and the local clock.</li>
     <li><strong>Notification permissions:</strong> Used only to deliver prayer time
     reminders you explicitly enable in Settings. We send no marketing notifications.</li>
   </ul>
+
+  <p><strong>When you create an account and enable sync, we additionally collect and
+  store on our servers:</strong></p>
+  <ul>
+    <li><strong>Email address:</strong> Used to sign you in via a one-time code and to
+    identify your account. We do not use passwords.</li>
+    <li><strong>Optional display name:</strong> If you choose to provide one.</li>
+    <li><strong>Your religious-practice data:</strong> so it can be synced and restored,
+    including prayer logs, prayer streaks, Qada (missed-prayer) records and adjustments,
+    Quran reading progress and bookmarks (including any notes you add), Dhikr/Tasbih
+    statistics and custom Tasbih entries, Quran memorization plans, Niyyah (intentions),
+    and your in-app settings.</li>
+    <li><strong>Authentication metadata:</strong> Login session tokens and their expiry,
+    stored to keep you signed in securely.</li>
+  </ul>
+
+  <p>
+    We do <strong>not</strong> collect your contacts, photos, precise location history,
+    or any special-category data beyond the religious-practice records you yourself
+    create in the App.
+  </p>
 
   <h2>2. How We Use Your Information</h2>
   <ul>
@@ -77,33 +106,56 @@
     (Ishraq, Tahajjud, etc.) based on your geographic coordinates.</li>
     <li>Pointing the Qibla compass toward Mecca.</li>
     <li>Scheduling local prayer-time notifications on your device.</li>
+    <li>Signing you in via a one-time code sent to your email (only if you create an
+    account).</li>
+    <li>Syncing your data across your devices and restoring it after reinstalling or
+    switching phones (only if you enable sync).</li>
   </ul>
-  <p>We do <strong>not</strong> use your information for advertising, analytics
-  profiling, or any purpose beyond the core features listed above.</p>
+  <p>We do <strong>not</strong> sell your personal data, and we do not use your synced
+  religious-practice data for advertising or profiling.</p>
 
   <h2>3. Data Storage</h2>
   <p>
-    All app data — Quran bookmarks, Tasbih counts, Dhikr session history, and
-    settings — is stored exclusively on your device using local storage. We operate
-    no backend servers and hold no databases containing user data.
+    If you use the App without an account, all data — Quran bookmarks, Tasbih counts,
+    Dhikr history, and settings — is stored exclusively on your device using local
+    storage.
+  </p>
+  <p>
+    If you create an account, the data listed in Section 1 is also stored on our backend
+    servers, which are hosted on <strong>Railway</strong> and use a PostgreSQL database.
+    Data is transmitted over encrypted HTTPS connections.
   </p>
 
   <h2>4. Third-Party Services</h2>
-  <p>NOOR uses the following on-device or open APIs:</p>
+  <p>NOOR relies on the following services:</p>
   <ul>
-    <li><strong>Quran API (alquran.cloud):</strong> Fetches Quran text and audio.
-    No personal data is sent — only surah/ayah identifiers.</li>
+    <li><strong>Railway (hosting):</strong> Hosts our backend API and database that
+    store account and synced data.</li>
+    <li><strong>Resend (email delivery):</strong> Sends the one-time sign-in code to
+    your email address. Your email is shared with Resend only for the purpose of
+    delivering that message.</li>
+    <li><strong>Firebase Analytics (Google):</strong> Collects anonymous, aggregated
+    usage data (such as which screens are opened and which events occur) to help us
+    improve the App. It is not used to identify you personally.</li>
+    <li><strong>Google Mobile Ads / AdMob:</strong> May display advertisements and may
+    collect device identifiers and ad-interaction data as described in Google's
+    policies.</li>
+    <li><strong>Quran API (alquran.cloud):</strong> Fetches Quran text and audio. Only
+    surah/ayah identifiers are sent — no personal data.</li>
     <li><strong>Prayer time calculation (Adhan library):</strong> Runs entirely
     on-device. No network request is made.</li>
   </ul>
-  <p>We do not integrate any advertising SDKs, social login, or analytics platforms
-  (e.g. Firebase Analytics, Facebook SDK).</p>
+  <p>
+    These providers process data under their own privacy policies. We encourage you to
+    review Google's Privacy Policy (<a href="https://policies.google.com/privacy">policies.google.com/privacy</a>)
+    and Resend's Privacy Policy (<a href="https://resend.com/legal/privacy-policy">resend.com/legal/privacy-policy</a>).
+  </p>
 
   <h2>5. Children's Privacy</h2>
   <p>
-    NOOR does not knowingly collect any information from children under 13. The App
-    contains no user accounts, no sign-up flow, and no mechanism to submit personal
-    data. It is safe for all ages.
+    NOOR is intended for a general audience and does not knowingly collect personal
+    information from children under 13. Account creation requires an email address. If
+    you believe a child has provided us personal data, contact us and we will delete it.
   </p>
 
   <h2>6. Permissions Requested</h2>
@@ -113,32 +165,51 @@
     manually.</li>
     <li><strong>POST_NOTIFICATIONS (Android 13+):</strong> Prayer time alerts.
     Entirely optional.</li>
-    <li><strong>INTERNET:</strong> Fetching Quran text and audio from alquran.cloud.</li>
+    <li><strong>INTERNET:</strong> Fetching Quran content, signing in, and syncing your
+    data when you have an account.</li>
   </ul>
 
   <h2>7. Data Retention &amp; Deletion</h2>
   <p>
-    Because we store nothing on external servers, there is nothing for us to delete on
-    your behalf. To erase all App data, simply uninstall NOOR from your device — this
-    removes all locally stored preferences, bookmarks, and session history.
+    <strong>Local data:</strong> To erase all locally stored data, uninstall NOOR from
+    your device.
+  </p>
+  <p>
+    <strong>Account data:</strong> If you have an account, you may request deletion of
+    your account and all associated synced data at any time by emailing us at the
+    address below. We will delete your account data from our servers upon verifying your
+    request. We retain account data only for as long as your account is active or as
+    needed to provide the sync service.
   </p>
 
   <h2>8. Security</h2>
   <p>
-    Since no personal data leaves your device, there is no transmission risk. Local
-    data is protected by your device's own security model (sandboxed app storage).
+    Data transmitted between the App and our servers is encrypted in transit using
+    HTTPS. Sign-in uses short-lived one-time codes and secure session tokens rather than
+    stored passwords. Session tokens on your device are kept in the platform's secure
+    storage. While we take reasonable measures to protect your data, no method of
+    transmission or storage is completely secure.
   </p>
 
-  <h2>9. Changes to This Policy</h2>
+  <h2>9. Your Rights</h2>
   <p>
-    We may update this Privacy Policy as the App evolves. Any changes will be
-    reflected on this page with an updated date at the top. Continued use of the App
-    after changes constitutes acceptance of the revised policy.
+    Depending on your jurisdiction, you may have the right to access, correct, export,
+    or delete the personal data we hold about you, and to withdraw consent for sync at
+    any time by deleting your account. To exercise these rights, contact us at the email
+    below.
   </p>
 
-  <h2>10. Contact Us</h2>
+  <h2>10. Changes to This Policy</h2>
   <p>
-    If you have questions about this Privacy Policy, please contact us at:<br />
+    We may update this Privacy Policy as the App evolves. Any changes will be reflected
+    on this page with an updated date at the top. Continued use of the App after changes
+    constitutes acceptance of the revised policy.
+  </p>
+
+  <h2>11. Contact Us</h2>
+  <p>
+    If you have questions about this Privacy Policy or wish to delete your account,
+    please contact us at:<br />
     <a href="mailto:misbahmushtaq75@gmail.com">misbahmushtaq75@gmail.com</a>
   </p>
 
