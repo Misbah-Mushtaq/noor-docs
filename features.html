@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noor — Features</title>
+  <style>
+    :root {
+      --gold-hi:   #f7d75c;
+      --gold-mid:  #d9a82a;
+      --gold-200:  #d4b87a;
+      --gold-400:  #9c8050;
+      --bg:        #080C10;
+      --bg2:       #0F1520;
+      --bg3:       #1E2535;
+      --surface:   rgba(255,255,255,0.04);
+      --border:    rgba(212,184,122,0.15);
+      --accent:    #d4b87a;
+      --text-1:    #f0e8d8;
+      --text-2:    rgba(240,232,216,0.60);
+      --text-3:    rgba(240,232,216,0.35);
+      --rule:      rgba(212,184,122,0.18);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:      #ffffff;
+        --bg2:     #f5efe3;
+        --bg3:     #ede5d4;
+        --surface: rgba(0,0,0,0.03);
+        --border:  rgba(156,128,80,0.18);
+        --accent:  #9c8050;
+        --text-1:  #2e2a24;
+        --text-2:  #4a4035;
+        --text-3:  #8a7a65;
+        --rule:    rgba(156,128,80,0.16);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg:      #080C10; --bg2: #0F1520; --bg3: #1E2535;
+      --surface: rgba(255,255,255,0.04); --border: rgba(212,184,122,0.15);
+      --accent:  #d4b87a; --text-1: #f0e8d8;
+      --text-2:  rgba(240,232,216,0.60); --text-3: rgba(240,232,216,0.35);
+      --rule:    rgba(212,184,122,0.18);
+    }
+    :root[data-theme="light"] {
+      --bg:      #ffffff; --bg2: #f5efe3; --bg3: #ede5d4;
+      --surface: rgba(0,0,0,0.03); --border: rgba(156,128,80,0.18);
+      --accent:  #9c8050; --text-1: #2e2a24;
+      --text-2:  #4a4035; --text-3: #8a7a65;
+      --rule:    rgba(156,128,80,0.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .theme-toggle {
+      position: fixed; top: 20px; right: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-2); padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; cursor: pointer; z-index: 100; transition: border-color 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    .page-nav {
+      display: flex; gap: 6px;
+      padding: 20px 40px 0;
+      max-width: 960px; margin: 0 auto;
+    }
+    .page-nav a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--text-3); padding: 5px 12px; border-radius: 20px;
+      border: 1px solid transparent; transition: all 0.2s;
+    }
+    .page-nav a:hover, .page-nav a.active {
+      color: var(--accent); border-color: var(--border); background: var(--surface);
+    }
+
+    .header {
+      display: flex; align-items: center; gap: 20px;
+      padding: 40px 40px 32px;
+      max-width: 960px; margin: 0 auto;
+      border-bottom: 1px solid var(--rule);
+    }
+    .header svg { flex-shrink: 0; }
+    .wordmark {
+      font-family: 'Amiri', Georgia, 'Times New Roman', serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em; line-height: 1; direction: rtl;
+    }
+    .tagline {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3); margin-top: 6px;
+    }
+    .doc-label {
+      margin-left: auto;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.10em;
+      text-transform: uppercase; color: var(--text-3); white-space: nowrap;
+    }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 40px 80px; }
+
+    /* ── intro ── */
+    .intro {
+      padding: 40px 0 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .intro p {
+      font-size: 16px; color: var(--text-2); max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── category ── */
+    .category { padding: 44px 0; border-bottom: 1px solid var(--rule); }
+    .category:last-child { border-bottom: none; }
+
+    .category-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+    }
+    .category-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .category-name {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-3);
+    }
+    .category-title {
+      font-size: 20px; font-weight: 600; color: var(--text-1); margin-top: 2px;
+    }
+
+    /* ── feature grid ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 20px 18px;
+      display: flex; flex-direction: column; gap: 7px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(212,184,122,0.35); }
+
+    .feature-name {
+      font-size: 14px; font-weight: 600; color: var(--text-1);
+    }
+    .feature-desc {
+      font-size: 13px; color: var(--text-2); line-height: 1.55;
+    }
+    .feature-tag {
+      margin-top: 6px;
+      display: inline-block;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+      background: rgba(212,184,122,0.08);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 8px;
+      width: fit-content;
+    }
+
+    /* ── platform badges row ── */
+    .platforms {
+      display: flex; gap: 8px; margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid var(--rule); flex-wrap: wrap;
+    }
+    .platform-pill {
+      font-size: 12px; font-weight: 500; color: var(--text-2);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 14px;
+    }
+
+    .footer {
+      margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-note { font-size: 12px; color: var(--text-3); }
+    .footer-arabic { font-size: 16px; color: var(--accent); opacity: 0.7; }
+
+    @media (max-width: 560px) {
+      .header, .wrap, .page-nav { padding-left: 20px; padding-right: 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme');
+  r.setAttribute('data-theme', cur === 'dark' ? 'light' : cur === 'light' ? 'dark' : (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'light' : 'dark'));
+  this.textContent = r.getAttribute('data-theme') === 'dark' ? '☀ Light' : '🌙 Dark';
+">🌙 Dark</button>
+
+
+
+<header class="header">
+  <svg viewBox="0 0 460 940" width="36" height="74" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hbar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f7d75c"/><stop offset="0.5" stop-color="#d9a82a"/><stop offset="1" stop-color="#9a7016"/>
+      </linearGradient>
+      <linearGradient id="hdome" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f7d75c"/><stop offset="1" stop-color="#d9a82a"/>
+      </linearGradient>
+      <radialGradient id="hglow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#ffd766" stop-opacity="0.9"/>
+        <stop offset="1" stop-color="#e8a52e" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="hglasc"><rect x="178" y="280" width="120" height="262" rx="7"/></clipPath>
+      <mask id="hcresm">
+        <circle cx="236" cy="360" r="36" fill="white"/>
+        <circle cx="255" cy="351" r="31" fill="black"/>
+      </mask>
+    </defs>
+    <circle cx="236" cy="360" r="150" fill="url(#hglow)" opacity="0.75"/>
+    <g clip-path="url(#hglasc)">
+      <rect x="178" y="280" width="120" height="262" fill="#221d0c"/>
+      <circle cx="236" cy="360" r="130" fill="url(#hglow)" opacity="0.85"/>
+    </g>
+    <rect x="190" y="316" width="92" height="92" fill="#ffe48a" mask="url(#hcresm)"/>
+    <line x1="236" y1="152" x2="236" y2="196" stroke="#d9a82a" stroke-width="2.5"/>
+    <circle cx="236" cy="146" r="7" fill="none" stroke="#d9a82a" stroke-width="2.5"/>
+    <circle cx="236" cy="162" r="3.2" fill="#f7d75c"/>
+    <circle cx="236" cy="174" r="3.2" fill="#d9a82a"/>
+    <circle cx="236" cy="186" r="3.2" fill="#f7d75c"/>
+    <path d="M176,266 C176,214 198,196 236,196 C274,196 296,214 296,266 Z" fill="url(#hdome)"/>
+    <line x1="178" y1="268" x2="294" y2="268" stroke="url(#hbar)" stroke-width="9" stroke-linecap="round"/>
+    <line x1="168" y1="278" x2="304" y2="278" stroke="url(#hbar)" stroke-width="11" stroke-linecap="round"/>
+    <line x1="170" y1="410" x2="302" y2="410" stroke="url(#hbar)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="168" y1="544" x2="304" y2="544" stroke="url(#hbar)" stroke-width="12" stroke-linecap="round"/>
+    <line x1="172" y1="280" x2="172" y2="542" stroke="url(#hbar)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="213" y1="280" x2="213" y2="542" stroke="url(#hbar)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="259" y1="280" x2="259" y2="542" stroke="url(#hbar)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="300" y1="280" x2="300" y2="542" stroke="url(#hbar)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="184" y1="556" x2="288" y2="556" stroke="url(#hbar)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="192" y1="568" x2="280" y2="568" stroke="url(#hbar)" stroke-width="9" stroke-linecap="round"/>
+    <line x1="202" y1="579" x2="270" y2="579" stroke="url(#hbar)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="212" y1="589" x2="260" y2="589" stroke="url(#hbar)" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="236" cy="610" r="10" fill="url(#hbar)"/>
+    <circle cx="236" cy="622" r="3" fill="#d9a82a"/>
+  </svg>
+  <div>
+    <div class="wordmark">نور</div>
+    <div class="tagline">Noor — Islamic Companion App</div>
+  </div>
+  <div class="doc-label">Features</div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <p>Noor is an all-in-one Islamic companion for Android and iOS — prayer times, Quran, Dhikr, Zakat, Qibla, and more. Every feature is built for daily use with no account required.</p>
+  </div>
+
+  <!-- ── Prayer ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🕌</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Prayer</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Prayer Times</div>
+        <div class="feature-desc">Accurate daily Fajr, Dhuhr, Asr, Maghrib, and Isha times calculated by GPS location. Supports multiple calculation methods and Hanafi/Shafi madhab.</div>
+        <span class="feature-tag">Home Screen</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Optional Prayers</div>
+        <div class="feature-desc">Ishraq, Chasht (Duha), Awwabeen, and Tahajjud times automatically derived from the day's prayer schedule.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Next Prayer Countdown</div>
+        <div class="feature-desc">Live countdown to the next salah with the prayer name and time displayed prominently on the home screen.</div>
+        <span class="feature-tag">Home Screen</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Prayer Reminders</div>
+        <div class="feature-desc">Configurable notifications for each salah — at time, 5, 10, or 15 minutes before. Per-prayer toggles for Fajr through Isha.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Prayer Journal</div>
+        <div class="feature-desc">Log each prayer as performed, late, or missed. Review your consistency over time with a visual history.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Qada Tracker</div>
+        <div class="feature-desc">Track missed prayers (qada) per salah with a daily make-up goal. Home screen widget shows total remaining and today's progress.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quran ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">📖</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Quran</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Full Quran Reader</div>
+        <div class="feature-desc">All 114 surahs with Arabic text, English transliteration, and translation. Smooth scroll with per-ayah highlighting.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Bookmarks</div>
+        <div class="feature-desc">Bookmark any ayah and return to it instantly. Bookmarks persist across sessions without an account.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Memorization Mode</div>
+        <div class="feature-desc">Focused view for hifz practice — hide and reveal ayahs to test recall, track progress per surah.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Sunnah Surahs</div>
+        <div class="feature-desc">Quick access to commonly recited surahs — Al-Kahf (Friday), Al-Mulk, Al-Waqiah, and more.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Verse of the Day</div>
+        <div class="feature-desc">A daily ayah with Arabic, translation, and surah reference shown on the home screen and as a widget.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Ruqya</div>
+        <div class="feature-desc">Curated collection of Quranic verses and Prophetic supplications used for spiritual healing and protection.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Dhikr & Tasbih ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">📿</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Dhikr & Tasbih</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Adhkar Sessions</div>
+        <div class="feature-desc">Morning and evening Adhkar with Arabic text, transliteration, translation, and source. Ring progress per dhikr, auto-advances through the session.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Tasbih Counter</div>
+        <div class="feature-desc">One-tap counter with quick presets for Subhan Allah, Alhamdulillah, and Allahu Akbar (×33). Cycles at 99 and tracks weekly total.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Custom Tasbeeh Targets</div>
+        <div class="feature-desc">Create personal recitation goals with a name, optional Arabic text, and any target count — e.g. Al-Noor × 25,000. Progress persists across sessions.</div>
+        <span class="feature-tag">New in v1.1.5</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Dhikr Counter Widget</div>
+        <div class="feature-desc">Home screen widget showing your current dhikr, session count, and total completed rounds.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Duas ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🤲</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Duas</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Quick Duas</div>
+        <div class="feature-desc">Everyday supplications for eating, sleeping, travel, entering/leaving home, and more — with Arabic, transliteration, and translation.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Masnoon Duas</div>
+        <div class="feature-desc">Collection of authentic Prophetic duas sourced from Hisn Al-Muslim, organised by occasion.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Dua Library</div>
+        <div class="feature-desc">Searchable library of duas covering a wide range of life situations and needs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Zakat ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🪙</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Zakat</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Zakat Calculator</div>
+        <div class="feature-desc">Full nisab calculation using live gold and silver prices. Enter cash, gold, silver, business assets, and receivables to compute your annual obligation.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Live Metal Prices</div>
+        <div class="feature-desc">Fetches real-time gold and silver spot prices to keep the nisab threshold accurate.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Disbursement Tracker</div>
+        <div class="feature-desc">Record how and where you've paid your Zakat. Edit and recalculate existing records at any time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Islamic Finance ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">💰</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Islamic Finance</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Halal Finance Guide</div>
+        <div class="feature-desc">Understand the principles of halal finance — riba, gharar, and permissible investment structures explained clearly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Riba Awareness</div>
+        <div class="feature-desc">Learn what constitutes interest (riba) in everyday banking, loans, and credit — and the Islamic alternatives.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Halal Investment Principles</div>
+        <div class="feature-desc">Overview of Shariah-compliant investing — sukuk, equity screening, and avoiding prohibited industries.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Asma ul Husna ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">✨</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Asma ul Husna</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">99 Names of Allah</div>
+        <div class="feature-desc">All 99 divine names with Arabic text, transliteration, meaning, and a detailed description of each attribute.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Name of the Day</div>
+        <div class="feature-desc">A featured name rotates daily — expand it to read a reflection and listen to the Arabic pronunciation.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Search & Favourites</div>
+        <div class="feature-desc">Search names by transliteration or meaning. Star your favourites to revisit them quickly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Audio Pronunciation</div>
+        <div class="feature-desc">Tap to hear each name spoken aloud in Arabic using text-to-speech so you can learn correct pronunciation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quran Plan ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">📅</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Quran Reading Plan</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Personalised Plan</div>
+        <div class="feature-desc">Set a target to complete the Quran in 30, 60, 90 days or at your own pace. The plan tracks your daily pages and adjusts automatically.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Daily Progress</div>
+        <div class="feature-desc">See today's reading target, how many pages you've completed, and how far you are from finishing the Quran.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Streak Tracking</div>
+        <div class="feature-desc">Build and maintain a daily reading streak. Miss a day and the plan recalculates to keep you on track.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Tools ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🧭</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Tools</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Qibla Compass</div>
+        <div class="feature-desc">Live compass pointing toward the Kaaba from your current location, with bearing degree and distance in km.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Islamic Calendar</div>
+        <div class="feature-desc">Hijri date with upcoming Islamic events — Ramadan, Eid, Mawlid, Ashura, and more. Swipeable month view with event dots.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Sunnah Fasting</div>
+        <div class="feature-desc">Know which days are recommended to fast — Monday & Thursday, Ayyam al-Beed (13–15 Hijri), Ashura, and Arafah.</div>
+        <span class="feature-tag">Widget</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Islamic Books</div>
+        <div class="feature-desc">Curated collection of essential Islamic texts available for reading within the app.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Memo</div>
+        <div class="feature-desc">Quick note-taking for Islamic reflections, lecture notes, or personal reminders.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Notification Inbox</div>
+        <div class="feature-desc">Full history of all received notifications — prayer times, adhkar reminders, Friday Kahf — grouped by Today and Earlier with type filters.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Monthly Insights</div>
+        <div class="feature-desc">Personal dashboard tracking prayer consistency, Dhikr streaks, and weekly activity at a glance.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Niyyah (Intention)</div>
+        <div class="feature-desc">Set and save your daily intention before salah — a simple reminder to anchor your worship with purpose.</div>
+        <span class="feature-tag">Home Screen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Widgets ── -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🪟</div>
+      <div>
+        <div class="category-name">Category</div>
+        <div class="category-title">Home Screen Widgets</div>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-name">Prayer Times Widget</div>
+        <div class="feature-desc">Shows all five prayer times with the current prayer highlighted. Available on Android and iOS.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Islamic Date Widget</div>
+        <div class="feature-desc">Displays today's Hijri date and any upcoming Islamic occasion. Android and iOS.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Daily Verse Widget</div>
+        <div class="feature-desc">A new Quranic ayah every day with Arabic text, translation, and reference. iOS.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Dhikr Counter Widget</div>
+        <div class="feature-desc">Current dhikr, session count, and completion rounds at a glance. iOS.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Qada Tracker Widget</div>
+        <div class="feature-desc">Total missed prayers remaining and today's make-up goal. Android.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-name">Sunnah Fast Widget</div>
+        <div class="feature-desc">Whether today is a recommended fast day (Monday/Thursday, 13–15 Hijri, Ashura, Arafah). Android.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platforms">
+    <span class="platform-pill">📱 Android</span>
+    <span class="platform-pill">🍎 iOS</span>
+    <span class="platform-pill">🌙 Dark Mode</span>
+    <span class="platform-pill">☀️ Light Mode</span>
+    <span class="platform-pill">🔒 No Account Required</span>
+    <span class="platform-pill">📴 Works Offline</span>
+    <span class="platform-pill">🌍 Multi-locale Prayer Calculation</span>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-note">Noor · Islamic Companion App · Android &amp; iOS</span>
+    <span class="footer-arabic">بِسْمِ اللَّه</span>
+  </footer>
+
+</div>
+</body>
+</html>
